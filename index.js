@@ -12,6 +12,27 @@ let weather ={
         const {icon, description} = data.weather[0];
         const {temp, humidity} = data.main;
         const {speed} = data.wind; 
-        console.log(name,icon,description,temp,humidity,speed)
+        document.querySelector(".city").textContent = "Weather in " + name;
+        document.querySelector(".icon").src = "https://openweathermap.org/img/wn/" + icon + ".png";
+        document.querySelector(".description").textContent = description;
+        document.querySelector(".temp").textContent = temp + "°C";
+        document.querySelector(".humidity").textContent = "Humidity: " + humidity + "%";
+        document.querySelector(".wind").textContent = "Wind Speed: " + speed + "km/h"
+    },
+    search: function (){
+        this.fetchWeather(document.querySelector(".search").value)
     }
+
 };
+
+document.querySelector(".search-bar button").addEventListener("click", function(){
+    weather.search();
+});
+
+document.querySelector(".search").addEventListener("keyup", function(e){
+    if(e.key == "Enter"){
+        weather.search();
+    }
+});
+
+weather.fetchWeather("Abuja");
